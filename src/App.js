@@ -25,7 +25,7 @@ function App() {
   
 
  const adminUser = {
-   email : "admin@hotmail.com",
+   email : "admin@gmail.com",
    password : "admin"
  }
  const [user,setUser] = useState({email : "",password: ""})
