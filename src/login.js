@@ -46,7 +46,7 @@ if (!open) return null
             </div>
             <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input  className="form-control" type="text" password="password" id="password" onChange={e=>setDetails({...details,password: e.target.value})} value={details.password}/>
+                <input  className="form-control" type="password" password="password" id="password" onChange={e=>setDetails({...details,password: e.target.value})} value={details.password}/>
             </div>
             <input type="submit" value="Log In"  className="btn btn-success" /><br/><br/>
             <button className="btn btn-danger" onClick={onClose}>Close Modal</button>
