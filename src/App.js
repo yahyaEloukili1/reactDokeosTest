@@ -2,7 +2,6 @@ import React,{useState} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './home';
-import Modal  from "./Modal";
 import Loggin from "./login";
 import {Route,BrowserRouter as Router, Redirect, Switch} from 'react-router-dom'
 
@@ -30,22 +29,38 @@ function App() {
  }
  const [user,setUser] = useState({email : "",password: ""})
  const [error,setError] = useState("")
+ const [emailError,setEmailError] = useState("")
+ const [passwordError,setPasswordError] = useState("")
  const [isOpen, setIsOpen] = useState(false)
  const Login = (details) =>{
   if(details.email == adminUser.email && details.password==adminUser.password){
    setUser({email : details.email,password : details.password})
       
-  }else if(details.email == "" || details.password==""){
-    setError('Fields should not be empty');
   }
+   else if(!details.email && !details.password){
+      setEmailError("Email should not be empty")
+      setPasswordError("Password should not be empty")
+      setError('')
+    }
+  else  if(!details.email){
+      setEmailError("Email should not be empty")
+      setPasswordError("")
+      setError('')
+    }
+    else if(!details.password){
+      setEmailError("")
+      setError('')
+        setPasswordError("Password should not be empty")
+    }
+  
   else{
-    console.log("no logged In");
+    setEmailError("")
+    setPasswordError("")
     setError('Login or password incorrect')
   }
  }
  const Logout = ()=>{
     setUser({email : "",password : ""})
-    
     location.href= "/login"
 
  }
@@ -62,7 +77,7 @@ function App() {
             ):(
               <div style={BUTTON_WRAPPER_STYLES}>
               <button className="btn btn-success" onClick={() => setIsOpen(true)}>Sign in</button>
-              <Loggin login={Login} error={error}  open={isOpen} onClose={() => setIsOpen(false)} customText={'Sign in'} />
+              <Loggin login={Login} error={error}  open={isOpen} onClose={() => setIsOpen(false)} customText={'Sign in'} emailError={emailError} passwordError={passwordError}/>
               </div>
             )}
         </div>

@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 
 import ReactDom from 'react-dom'
-
-export default function Loggin({login,error,open,onClose,customText}){
+import './login.css'
+export default function Loggin(props){
+  const {login,error,open,onClose,customText,emailError,passwordError} = props
 const [details,setDetails]= useState({email:"",password: ""});
 const submitHandler = e=>{
     e.preventDefault();
@@ -39,14 +40,22 @@ if (!open) return null
         <form onSubmit={submitHandler}>
         <div className="form-inner">
             <h3>{customText}</h3>    
-            {(error!="") ?(<div className="error text-danger">{error}</div>): ""}
+            {(error!="") ?(<div className="alert alert-danger">{error}</div>): ""}
             <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input  className="form-control" type="text" email="email" id="email" onChange={e=>setDetails({...details,email: e.target.value})} value={details.email} />
+                {emailError? <> <input   className="form-control invalid" type="text" email="email" id="email" onChange={e=>setDetails({...details,email: e.target.value})} value={details.email} />
+              <div className="text-danger">Email should not be empty</div></>: 
+              <> <input   className="form-control" type="text" email="email" id="email" onChange={e=>setDetails({...details,email: e.target.value})} value={details.email} />
+             </>
+              } 
             </div>
             <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input  className="form-control" type="password" password="password" id="password" onChange={e=>setDetails({...details,password: e.target.value})} value={details.password}/>
+                {passwordError? <> <input   className="form-control invalid" type="password" password="password" id="password" onChange={e=>setDetails({...details,password: e.target.value})} value={details.password} />
+              <div className="text-danger">password should not be empty</div></>: 
+              <> <input   className="form-control" type="password" password="password" id="password" onChange={e=>setDetails({...details,password: e.target.value})} value={details.password} />
+             </>
+              } 
             </div>
             <input type="submit" value="Log In"  className="btn btn-success" /><br/><br/>
             <button className="btn btn-danger" onClick={onClose}>Close Modal</button>
