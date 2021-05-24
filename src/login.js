@@ -52,7 +52,7 @@ if (!open) return null
             <div className="form-group">
                 <label htmlFor="password">Password</label>
                 {passwordError? <> <input   className="form-control invalid" type="password" password="password" id="password" onChange={e=>setDetails({...details,password: e.target.value})} value={details.password} />
-              <div className="text-danger">password should not be empty</div></>: 
+              <div className="text-danger">Password should not be empty</div></>: 
               <> <input   className="form-control" type="password" password="password" id="password" onChange={e=>setDetails({...details,password: e.target.value})} value={details.password} />
              </>
               } 
